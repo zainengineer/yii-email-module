@@ -21,10 +21,20 @@ class EmailAccessFilter extends CFilter
     protected function preFilter($filterChain)
     {
         $app = Yii::app();
-        /** @var emailModule $email */
-        $email = $app->getModule('email');
-        if (!in_array($app->getUser()->getName(), $email->adminUsers))
+        $bIsAdmin = false;
+        if (function_exists('isAdminUser')){
+            $bIsAdmin = isAdminUser();
+        }
+        else{
+            /** @var emailModule $email */
+            $email = $app->getModule('email');
+            if (in_array($app->getUser()->getName(), $email->adminUsers)){
+                $bIsAdmin = true;
+            }
+        }
+        if (!$bIsAdmin){
             throw new CHttpException(403, 'You are not allowed to access this page.');
+        }
         return parent::preFilter($filterChain);
     }
 

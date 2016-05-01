@@ -1,5 +1,5 @@
 {
-    "name": "cornernote/yii-email-module",
+    "name": "zainengineer/yii-email-module",
     "description": "Email system with templates and email queuing.",
     "type": "library",
     "license": "BSD-3-Clause",
